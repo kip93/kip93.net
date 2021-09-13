@@ -1,0 +1,253 @@
+/****************************************************** Heading *******************************************************/
+
+#name {
+    /* Font */
+    font-size: 38px;
+    line-height: 1.2em;
+    letter-spacing: 1px;
+
+    /* Alignment */
+    text-align: center;
+
+    /* Spacing */
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+#name +#title {
+    /* Font */
+    font-size: 24px;
+
+    /* Alignment */
+    text-align: center;
+
+    /* Spacing */
+    margin-bottom: 16px;
+}
+
+#name span{
+    /* Alignment */
+    display: inline-block;
+}
+
+#summary {
+    /* Style */
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+@media only screen and (max-width: 400px) {
+    #name {
+        /* Font */
+        font-size: 32px;
+        letter-spacing: 0px;
+    }
+
+    #name +#title {
+        /* Font */
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    #name {
+        /* Font */
+        font-size: 24px;
+        letter-spacing: 0px;
+    }
+
+    #name +#title {
+        /* Font */
+        font-size: 18px;
+    }
+}
+
+/******************************************************* Skills *******************************************************/
+
+.skills {
+    /* Alignment */
+    column-count: 2;
+}
+
+.skillset {
+    /* Style */
+    display: inline-block;
+
+    /* Size */
+    width: 100%;
+}
+
+.skillset h3 {
+    /* Spacing */
+    margin-top: 12px;
+}
+
+.skill {
+    /* Alignment */
+    display: block;
+
+    /* Position */
+    position: relative;
+}
+
+.skill span {
+    /* Font */
+    font-size: 38px;
+    letter-spacing: 1px;
+
+    /* Position */
+    position: absolute;
+    top: -0.1em;
+    right: 0px;
+
+    /* Colours */
+    color: #DB70A6;
+}
+
+.skill span[title=\31\2F\35]::after {
+    /* Style */
+    content: "●○○○○";
+}
+
+.skill span[title=\32\2F\35]::after {
+    /* Style */
+    content: "●●○○○";
+}
+
+.skill span[title=\33\2F\35]::after {
+    /* Style */
+    content: "●●●○○";
+}
+
+.skill span[title=\34\2F\35]::after {
+    /* Style */
+    content: "●●●●○";
+}
+
+.skill span[title=\35\2F\35]::after {
+    /* Style */
+    content: "●●●●●";
+}
+
+@media only screen and (max-width: 670px) {
+    .skill span {
+        /* Font */
+        font-size: calc(11vw - 36px);
+        letter-spacing: -2px;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .skills {
+        /* Alignment */
+        column-count: 1;
+    }
+
+    .skill span {
+        /* Font */
+        font-size: 38px;
+        letter-spacing: 1px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .skill span {
+        /* Font */
+        font-size: 20px;
+        font-size: calc(20vw - 34px);
+        letter-spacing: -2px;
+    }
+}
+
+/****************************************************** Content *******************************************************/
+
+.entry:not(:first-child) {
+    /* Spacing */
+    margin-top: 20px;
+}
+
+.experience   .company,
+.education    .title,
+.publications .title {
+    /* Font */
+    font-size: 24px;
+
+    /* Spacing */
+    margin-top: 10px;
+    margin-bottom: 4px;
+    line-height: 1.3em;
+
+    /* Alignment */
+    display: block;
+
+    /* Colours */
+    color: #DB70A6;
+}
+
+.experience   .title,
+.experience   .range,
+.education    .university,
+.education    .range,
+.publications .year {
+    /* Spacing */
+    margin-top: 4px;
+}
+
+.experience .title,
+.education  .university {
+    /* Colours */
+    color: #DB70A6;
+}
+
+.experience .title,
+.experience .range,
+.education  .university,
+.education  .range {
+    /* Alignment */
+    display: inline-block;
+}
+
+.experience .range,
+.education  .range {
+    /* Alignment */
+    float: right;
+}
+
+.publications .year {
+    /* Alignment */
+    display: block;
+}
+
+.entry .description {
+    /* Style */
+    text-align: justify;
+    text-justify: inter-word;
+    border-top: 1px solid #A0A0A0;
+
+    margin-top: 4px;
+}
+
+.experience   .company::selection,
+.experience     .title::selection,
+.education      .title::selection,
+.education .university::selection,
+.publications   .title::selection {
+    /* Colours */
+    background: #DB70A6;
+}
+
+@media only screen and (max-width: 550px) {
+    .experience .title,
+    .experience .range,
+    .education  .university,
+    .education  .range {
+        /* Alignment */
+        display: block;
+    }
+
+    .experience .range,
+    .education  .range {
+        /* Alignment */
+        float: unset;
+    }
+}

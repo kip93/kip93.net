@@ -1,0 +1,45 @@
+```
+  .------------------------------------.
+  |  .------------------------------.  |
+  |[]|    _    _      ____ ____     |[]|
+  |  |   | |__ _ ____| .  |__  |    |  |
+  |  |   | / /| | .  |__  |__  |    |  |         █ █ ▀ █▀█ █▀█ ▀▀█   █▀█ █▀▀ ▀█▀
+  |  |   |_\_\|_|  __|____|____|    |  |         █▀▄ █ █▀▀ ▀▀█  ▀█   █ █ █▀▀  █
+  |  |          |_|                 |  |         ▀ ▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀ ▀ ▀ ▀▀▀  ▀
+  |  |                              |  |
+  |  |        All rights reserved.  |  |          ╻ ╻
+  |  |------------------------------|  |          ┣━┫┏━┓┏┳┓┏━┓┏━┓┏━┓┏━┓┏━┓
+  |  | v4.6           Disk 69 of 42 |  |          ┃ ┃┃ ┃┃┃┃┣━┛┃ ┃┏━┫┃ ┃┣━┛
+  |  '------------------------------'  |          ╹ ╹┗━┛╹╹╹┗━┛┣━┛┗━┛┗━┫┗━┛
+  |       ___________________ ______   |                      ╹     ┗━┛
+  |      |   ____            |      |  |
+  |      |  |    |           |      |  |
+  |      |  |    |    2HD    |      |  |
+  | //|| |  |    |   1.44 MB |      |__|
+  \ \\|| |  |____|           |      |\/|
+   \_____|___________________|______|__|
+```
+
+# Home
+A heavily opinionated personal site.
+
+This capsule can be accessed either through the gemini protocol or through an HTTP mirror.
+
+=> gemini://kip93.net/        gemini://kip93.net/        -  GEMINI capsule
+=> https://kip93.net/gemini/  https://kip93.net/gemini/  -  HTTP site
+
+## About me
+I am a self-taught software developer professional and electronics hobbyist, and a strong advocate for "libre" software (i.e., FOSS). My specialities are unhealthy obsessions, bad memory, and a complete lack of understanding of how human interactions work.
+
+## Content
+This is a list of the content available on this capsule.
+
+=> ./rants/  ./rants  -  Gemlog
+=> ./about/  ./about  -  About page
+
+## Interesting Gemini capsules
+Some capsules I found when scouting the gemini space that think are neat.
+
+=> //geminispace.info/                 geminispace.info                 -  A gemini search engine
+=> //mozz.us                           mozz.us                          -  One of the first gemini capsules
+=> //gemini.circumlunar.space/capcom/  gemini.circumlunar.space/capcom  -  A feed of "gemlogs".

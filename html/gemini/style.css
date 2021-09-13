@@ -1,0 +1,276 @@
+/******************************************************* Fonts ********************************************************/
+
+@font-face {  /* Regular */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {  /* Italic */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {  /* Bold */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/******************************************************** Body ********************************************************/
+
+html {
+    /* Colours */
+    background-color: #141414;
+    color: #A0A0A0;
+
+    /* Font */
+    font-size: 14px;
+    font-style: normal;
+    font-variant-ligatures: normal;
+
+    /* Spacing */
+    line-height: 16px;
+    padding: 24px;
+    margin: 0px;
+
+    /* Multi lines */
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+
+body {
+    /* Size */
+    max-width: 920px
+}
+
+* {
+    /* Font */
+    font-family: "Victor Mono", monospace;
+}
+
+/****************************************************** Headings ******************************************************/
+
+h1, h2, h3, h4, h5, h6 {
+    /* Font */
+    font-weight: bold;
+
+    /* Spacing */
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H1   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h1 {
+    /* Colours */
+    color: #CC7A7A;
+
+    /* Font */
+    font-size: 28px;
+
+    /* Spacing */
+    line-height: 30px;
+    margin-left: 2ch;
+    text-indent: -2ch;
+}
+h1::before {
+    /* Style */
+    content: "# ";
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H2   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h2 {
+    /* Colours */
+    color: #BECC7A;
+
+    /* Font */
+    font-size: 26px;
+
+    /* Spacing */
+    line-height: 28px;
+    margin-left: 3ch;
+    text-indent: -3ch;
+}
+h2::before {
+    /* Style */
+    content: "## ";
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H3   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h3 {
+    /* Colours */
+    color: #FFCC99;
+
+    /* Font */
+    font-size: 24px;
+
+    /* Spacing */
+    line-height: 26px;
+    margin-left: 4ch;
+    text-indent: -4ch;
+}
+h3::before {
+    /* Style */
+    content: "### ";
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H4   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h4 {
+    /* Colours */
+    color: #7A96CC;
+
+    /* Font */
+    font-size: 22px;
+
+    /* Spacing */
+    line-height: 24px;
+    margin-left: 5ch;
+    text-indent: -5ch;
+}
+h4::before {
+    /* Style */
+    content: "#### ";
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H5   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h5 {
+    /* Colours */
+    color: #E68AB8;
+
+    /* Font */
+    font-size: 20px;
+
+    /* Spacing */
+    line-height: 22px;
+    margin-left: 6ch;
+    text-indent: -6ch;
+}
+h5::before {
+    /* Style */
+    content: "##### ";
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *   H6   * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+h6 {
+    /* Colours */
+    color: #7ACCCC;
+
+    /* Font */
+    font-size: 18px;
+
+    /* Spacing */
+    line-height: 20px;
+    margin-left: 7ch;
+    text-indent: -7ch;
+}
+h6::before {
+    /* Style */
+    content: "###### ";
+}
+
+/**************************************************** Preformatted ****************************************************/
+
+pre, code {
+    /* Colours */
+    color: #CC9966;
+
+    /* Font */
+    font-variant-ligatures: none;
+}
+pre::before {
+    /* Style */
+    content: "```\0A";
+}
+pre::after {
+    /* Style */
+    content: "\0A```";
+}
+
+/******************************************************* Quotes *******************************************************/
+
+blockquote {
+    /* Colours */
+    color: #B35986;
+
+    /* Spacing */
+    margin-left: 2ch;
+    text-indent: -2ch;
+}
+blockquote::before {
+    /* Style */
+    content: "> ";
+}
+
+/******************************************************* Links ********************************************************/
+
+a {
+    /* Colours */
+    color: #4D9999;
+
+    /* Style */
+    text-decoration: none;
+
+    /* Spacing */
+    white-space: pre-wrap;
+}
+a:hover {
+    /* Colours */
+    color: #7ACCCC;
+}
+a::before {
+    /* Style */
+    content: "=> ";
+}
+a.inline {
+    /* Style */
+    content: "";
+}
+a.inline::before {
+    /* Style */
+    content: "";
+}
+p.link {
+    /* Spacing */
+    margin-left: 3ch;
+    text-indent: -3ch;
+}
+
+/******************************************************* Lists ********************************************************/
+
+ul {
+    /* Spacing */
+    padding-left: 0px;
+
+    /* Style */
+    list-style-type: none;
+}
+li {
+    /* Colours */
+    color: #8C994D;
+
+    /* Spacing */
+    margin-top: 8px;
+    margin-left: 2ch;
+    text-indent: -2ch;
+}
+li::before {
+    /* Style */
+    content: "* ";
+}
+li:first-child {
+    /* Spacing */
+    margin-top: 0px;
+}

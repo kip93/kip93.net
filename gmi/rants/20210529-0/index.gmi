@@ -1,0 +1,32 @@
+=> ../  ..  -  Go back
+
+# 2021/05/29 - Hello
+```
+          _..---==----,.__
+      __,/      _  ''   _ \_
+     /   '. /  _         \  \
+    /.     '. /   \ \   \ \  \
+   /  / /    '. '     /   .   \
+   |    /   .:=-:,  /    \    ||
+   | /     :/   __\  /  _   \  |     ╻   ╻                                           ╻
+   |   |  |'       \/ \/ \\._ /_     ┃   ┃     ╻ ╻              ╻                    ┃
+   '| __  / ,,====  \  ,====.\| \    ┣━━━┫┏━━━┓┃ ┃ ┏━━━┓   ╺━╋━╸┃    ┏━━━┓┏━━━┓┏━━━┓ ┃
+    \//_\| ' ( (o))   | ( (o))| |    ┃   ┃┣━━━┛┃ ┃ ┃   ┃     ┃  ┣━━━┓┣━━━┛┃    ┣━━━┛ ╹
+     \\:||            |       |/     ╹   ╹┗━━━┛┗╸┗╸┗━━━┛     ┗  ╹   ╹┗━━━┛╹    ┗━━━┛ ╹
+      \_/:\           |      /\
+       '|  \\.        |\   .: |                             - Ewan McGregor
+        '| - '\:...\__|/,,''  |
+         \  .  ; ,______. , + /
+          \,  :  \______/  .  /:
+           \_  .   '''' /:  ./+=-,.
+            '\,.  : .  ,  _/       '*+=,..
+           _/  ''\:,..__/'              '':
+        ,,/        ''''
+   _.,/'
+=:''
+``` Yes, I did just spend 1h to create this just for the joke.
+
+I wanted to write a short hello to start off the gemlog. I am being enjoying the gem space. It reminds me of the early web when GeoCities was a thing and sites were small and simple, and the internet was more of a community rather than what nowadays feels like a hellhole owned by corporate overlords, where everything is about consuming content.
+But that is enough rant for now, so cheers to you and I hope that you are enjoying gemini as much as I am!
+
+ - Kip

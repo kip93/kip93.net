@@ -1,0 +1,16 @@
+# Ignore everything.
+/**/*
+
+# Except:
+!/.gitignore
+!/agate/
+!/g2h
+!/gmi/
+!/html/
+!/LICENSE.md
+!/LICENSE_BSD3
+!/LICENSE_CC_BY_4
+!/nginx/
+!/README.md
+!/setup.cfg
+!/shell.nix

@@ -1,0 +1,18 @@
+=> ../  ..  -  Go back
+
+```
+   _____________
+  |  _________  |
+  |O|         |O|    ┏━━━┓
+  | |_________| |    ┃   ┃
+  | |_________| |    ┣━━┳┛┏━━━┓┏━━━┓╺━╋━╸┏━━━┓
+  |   _____ __  |    ┃  ┃ ┏━━━┫┃   ┃  ┃  ┗━━━┓
+  |CH|     |  |V|    ╹  ╹ ┗━━━┛╹   ╹  ┗  ┗━━━┛
+  \__|_____|__|_|
+```
+
+# Rants
+A log of sporadic rants and other shenanigans. Here is where I might or might not end up dumping random shit once in a while.
+List is sorted chronologically with new entries first.
+
+=> ./20210529-0/  2021/05/29  -  Hello

@@ -1,0 +1,435 @@
+/******************************************************* Fonts ********************************************************/
+
+@font-face {  /* Regular */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {  /* Italic */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {  /* Bold */
+    font-family: "Victor Mono";
+    src: url("/resources/fonts/VictorMono-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/******************************************************** Body ********************************************************/
+
+body {
+    /* Font */
+    font-family: "Victor Mono", monospace;
+    font-style: normal;
+    font-variant-ligatures: none;
+
+    /* Size */
+    height: 100vh;
+
+    /* Spacing */
+    line-height: 1.4em;
+
+    /* Alignment */
+    display: flex;
+    flex-flow: column;
+
+    /* Background */
+    background: #141414;
+}
+
+* {
+    /* Spacing */
+    padding: 0px;
+    margin: 0px;
+}
+
+/***************************************************** Selection ******************************************************/
+
+*::selection {
+    /* Colours */
+    color:      #141414;
+    background: #A0A0A0;
+}
+
+/******************************************************* Focus ********************************************************/
+
+*:focus {
+    outline-color: #DB70A6;
+}
+
+/******************************************************* Header *******************************************************/
+
+#logo {
+    /* Position */
+    position: absolute;
+    top: 0px;
+    left: 18px;
+
+    /* Spacing */
+    padding: 0px;
+}
+
+#logo:hover {
+    color:      #00000000;
+    background: #00000000;
+}
+
+header {
+    /* Colours */
+    background-color: #262626;
+
+    /* Font */
+    font-size: 16px;
+
+    /* Spacing */
+    padding: 0px 14px;
+}
+
+header nav {
+    /* Position */
+    float: right;
+}
+
+header ul {
+    /* Style */
+    list-style-type: none;
+
+    /* Spacing */
+    margin: 0px;
+    padding: 0px;
+
+    /* Position */
+    float: right;
+}
+
+header li {
+    /* Alignment */
+    float: left;
+}
+
+header a {
+    /* Style */
+    text-decoration: none;
+    display: block;
+
+    /* Colours */
+    color: #A0A0A0;
+
+    /* Spacing */
+    padding: 16px calc(1.2vw + 2px);
+    line-height: 16px;
+}
+
+header a:hover {
+    /* Style */
+    text-decoration: none;
+
+    /* Colours */
+    color:            #A0A0A0;
+    background-color: #363636;
+}
+
+header *::selection {
+    /* Colours */
+    color:      #363636;
+    background: #A0A0A0;
+}
+
+@media only screen and (max-width: 290px) {
+    header {
+        /* Font */
+        font-size: 14px;
+    }
+}
+
+/****************************************************** Content *******************************************************/
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *  Section   * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+section {
+    /* Font */
+    font-size: 16px;
+
+    /* Alignment */
+    display: flex;
+    flex-flow: row;
+    flex: 1;
+
+    /* Multi lines */
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *  Article   * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+article {
+    /* Alignment */
+    display: flex;
+    flex: 1;
+}
+
+/*  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  Text  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  */
+
+article #body {
+    /* Colours */
+    color: #A0A0A0;
+
+    /* Spacing */
+    padding: 0px 20px;
+
+    /* Size */
+    width: 100%;
+
+    /* Alignment */
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+article #content {
+    /* Size */
+    width:     98%;
+    max-width: 750px;
+
+    /* Alignment */
+    flex: 1;
+}
+
+article h1,
+article h2,
+article h3 {
+    /* Font */
+    font-weight: bold;
+
+    /* Spacing */
+    margin: 20px 0px 8px 0px;
+    line-height: 1.3em;
+}
+
+article h1 {
+    /* Font */
+    font-size: 28px;
+    letter-spacing: 3px;
+
+    /* Alignment */
+    text-align: center;
+
+    /* Colours */
+    color: #DB70A6;
+
+    /* Style */
+    border-top:    1px solid #DB70A6;
+    border-bottom: 1px solid #DB70A6;
+}
+
+article h1 +h2,
+article h1 +* >h2:first-child,
+article h1 +* >*:first-child >h2:first-child {
+    /* Spacing */
+    margin: 12px 0px 8px 0px;
+}
+
+article h2 {
+    /* Font */
+    font-size: 24px;
+    letter-spacing: 1px;
+
+    /* Colours */
+    color: #DB70A6;
+
+    /* Style */
+    border-bottom: 1px solid #DB70A6;
+}
+
+article h2 +h3,
+article h2 +* >h3:first-child,
+article h2 +* >*:first-child >h3:first-child {
+    /* Spacing */
+    margin: 12px 0px 8px 0px;
+}
+
+article h3 {
+    /* Font */
+    font-size: 20px;
+
+    /* Colours */
+    color: #DB70A6;
+
+    /* Style */
+    overflow: hidden;
+}
+
+article h3:after {
+    /* Colour */
+    background-color: #DB70A6;
+
+    /* Position */
+    position: relative;
+    left: 0.3em;
+    margin-right: -100%;
+
+    /* Style */
+    content: "";
+    display: inline-block;
+    height: 1px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+article p {
+    /* Font */
+    font-size: 16px;
+    font-style: italic;
+
+    /* Spacing */
+    margin: 8px 0px 12px 0px;
+}
+
+article ul,
+article ol,
+article li {
+    /* Font */
+    font-style: italic;
+
+    /* Spacing */
+    margin: 8px 0px 12px 0px;
+}
+
+article ul,
+article ol {
+    /* Spacing */
+    padding: 0px 0px 0px 24px;
+}
+
+article a {
+    /* Style */
+    text-decoration: underline;
+
+    /* Colours */
+    color: #DB70A6;
+}
+
+article a:hover {
+    /* Style */
+    text-decoration: none;
+}
+
+article *::selection {
+    /* Colours */
+    color:      #141414;
+    background: #A0A0A0;
+}
+
+article  a::selection,
+article h1::selection,
+article h2::selection,
+article h3::selection {
+    /* Colours */
+    background: #DB70A6;
+}
+
+article h2 .anchor_link,
+article h3 .anchor_link {
+    /* Font */
+    font-style: normal;
+
+    /* Colours */
+    color: transparent;
+
+    /* Style */
+    display: inline;
+    text-decoration: none;
+
+    /* Spacing */
+    margin: 0px 0px 0px 12px;
+}
+
+article h2:hover .anchor_link,
+article h3:hover .anchor_link {
+    /* Colours */
+    color: #DB70A6;
+}
+
+/******************************************************* Footer *******************************************************/
+
+footer {
+    /* Colours */
+    color:            #8C8D86;
+    background-color: #262626;
+
+    /* Font */
+    font-size: 14px;
+    font-style: italic;
+    line-height: 2em;
+
+    /* Spacing */
+    padding: 8px 0px;
+
+    /* Alignment */
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    text-align: center;
+}
+
+footer div {
+    /* Spacing */
+    margin: 0px 14px;
+}
+
+footer a {
+    /* Style */
+    text-decoration: underline;
+
+    /* Colours */
+    color: #8C8D86;
+}
+
+footer a:hover {
+    /* Style */
+    text-decoration: none;
+}
+
+footer *::selection {
+    /* Colours */
+    color:      #262626;
+    background: #8C8D86;
+}
+
+@media only screen and (max-width: 580px) {
+    footer {
+        /* Alignment */
+        flex-flow: column wrap;
+    }
+}
+
+/**************************************************** Accessibility ***************************************************/
+
+.skip-link {
+    /* Position */
+    position: absolute;
+    top: -999px;
+    left: 0;
+    z-index: 999;
+
+    /* Spacing */
+    padding: 12px;
+
+    /* Colours */
+    background: #141414;
+    color: #DB70A6;
+}
+
+.skip-link:focus {
+    /* Position */
+    top: 0;
+}

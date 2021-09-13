@@ -1,0 +1,17 @@
+/******************************************************** Icon ********************************************************/
+
+#icon {
+    font-size: max(min(13vw, 100px), 50px);
+    line-height: 1.5em;
+    letter-spacing: -8px;
+}
+
+#subtitle {
+    font-size: 28px;
+    line-height: 1.3em;
+    margin-bottom: 10px;
+}
+
+#quote {
+    margin-top: 40px;
+}

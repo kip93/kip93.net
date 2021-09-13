@@ -1,0 +1,192 @@
+/****************************************************** Content *******************************************************/
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * Positions  * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+article #content {
+    /* Alignment */
+    position: relative;
+}
+
+article #image {
+    /* Position */
+    position: absolute;
+    top:   20px;
+    right: 0px;
+}
+
+article #title {
+    /* Position */
+    position: absolute;
+    top:   30px;
+    right: 320px;
+}
+
+article #subtitle {
+    /* Font */
+    font-size: 32px;
+
+    /* Colours */
+    color: #DB70A6;
+
+    /* Alignment */
+    text-align: right;
+
+    /* Position */
+    position: absolute;
+    top:   210px;
+    right: 280px;
+
+    /* Spacing */
+    line-height: 1.2em;
+}
+
+article #text {
+    /* Alignment */
+    text-align: right;
+
+    /* Position */
+    position: absolute;
+    top:   290px;
+    right: 348px;
+}
+
+article span {
+    /* Alignment */
+    display: inline-block;
+}
+
+@media only screen and (max-width: 690px) {
+    article #content {
+        /* Alignment */
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    article #image {
+        /* Size */
+        max-width: 100%;
+
+        /* Alignment */
+        margin-top: calc(20px);
+
+        /* Position */
+        position: static;
+    }
+
+    article #title {
+        /* Size */
+        width:     28vw;
+        max-width: 100%;
+
+        /* Position */
+        position: absolute;
+        top:   calc(160px - 5vw);
+        left:  -10px;
+        right: unset;
+    }
+
+    article #subtitle {
+        /* Font */
+        font-size: calc(2vw + 18px);
+
+        /* Spacing */
+        margin-top: 10px;
+
+        /* Alignment */
+        text-align: center;
+
+        /* Position */
+        position: static;
+    }
+
+    article #text {
+        /* Spacing */
+        margin-top: 12px;
+
+        /* Alignment */
+        text-align: left;
+
+        /* Position */
+        position: static;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    article #title {
+        /* Position */
+        top: calc(25vw);
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    article #title {
+        /* Position */
+        top: calc(18vw);
+    }
+
+    article #subtitle {
+        /* Font */
+        font-size: calc(3.5vw + 10px);
+    }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * Footer * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+article #footer {
+    /* Alignment */
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    text-align: center;
+}
+
+article #footer #links {
+    /* Alignment */
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+article #footer a {
+    /* Size */
+    height: 42px;
+    width: 42px;
+
+    /* Spacing */
+    margin: 2px 4px 8px 4px;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * Icons  * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+article #github {
+    /* Content */
+    background-image: url("/resources/icons/github.svg");
+}
+
+article #github:hover {
+    /* Content */
+    background-image: url("/resources/icons/github_hover.svg");
+}
+
+article #linkedin {
+    /* Content */
+    background-image: url("/resources/icons/linkedin.svg");
+}
+
+article #linkedin:hover {
+    /* Content */
+    background-image: url("/resources/icons/linkedin_hover.svg");
+}
+
+article #contact {
+    /* Content */
+    background-image: url("/resources/icons/contact.svg");
+}
+
+article #contact:hover {
+    /* Content */
+    background-image: url("/resources/icons/contact_hover.svg");
+}

@@ -1,0 +1,87 @@
+# Log format ###########################################################################################################
+
+map  "$time_iso8601 # $msec" $datetime { "~(^[^+]+)([\+\-][0-9:]+|Z) # \d+\.(\d+)$" $1.$3$2; }
+map  "$msec" $timestamp { "~^(\d+)\.(\d+)$" $1$2; }
+
+log_format  custom_format '[$datetime $timestamp] $remote_addr "$request" -> $status $bytes_sent $request_time' ;
+
+server {  # HTTPS ######################################################################################################
+
+    # Listen to port 443 --------------------------------------------------------------------------------------------- #
+    listen       443 ssl ;
+    listen  [::]:443 ssl ipv6only=on ;
+
+    root   /var/www/html ;
+    index  index.html ;
+
+    # Server domain name --------------------------------------------------------------------------------------------- #
+    server_name  kip93.net www.kip93.net ;
+
+    # Compress responses --------------------------------------------------------------------------------------------- #
+    gzip    on ;
+    gunzip  on ;
+
+    gzip_min_length  256 ;
+    gzip_buffers     16 8k;
+    gzip_proxied     any ;
+
+    gzip_types
+        # Plain text
+        text/css
+        text/html
+        text/js
+        text/plain
+
+        # Images
+        image/jpeg
+        image/png
+        image/svg+xml
+        image/webp
+
+        ;
+
+    # Error responses ------------------------------------------------------------------------------------------------ #
+    location  / { try_files  $uri $uri/ =404 ; }
+
+    error_page  404 /error/404.html ;
+    error_page  500 /error/500.html ;
+    error_page  503 /error/503.html ;
+    error_page  504 /error/504.html ;
+    location  ~* ^/error.*$ { internal; }
+
+    # Caching -------------------------------------------------------------------------------------------------------- #
+    location  ~* \.(ttf|woff2?)$ {  # Fonts
+        add_header  Cache-Control max-age=2419200 ;  # 28 days
+    }
+
+    location  ~* \.(gif|ico|jpeg|jpg|png|svg|webp)$ {  # Images
+        add_header  Cache-Control max-age=86400 ;  # 1 day
+    }
+
+    location  ~* \.(css|html|js?)$ {  # HTML, CSS, & JS
+        add_header  Cache-Control max-age=14400 ;  # 4 hours
+    }
+
+    # Certificates --------------------------------------------------------------------------------------------------- #
+    ssl_certificate      /etc/letsencrypt/live/kip93.net/fullchain.pem ;
+    ssl_certificate_key  /etc/letsencrypt/live/kip93.net/privkey.pem ;
+    include              /etc/letsencrypt/options-ssl-nginx.conf ;
+    ssl_dhparam          /etc/letsencrypt/ssl-dhparams.pem ;
+
+    # Logs ----------------------------------------------------------------------------------------------------------- #
+    access_log  /var/log/nginx/access.log custom_format ;
+    error_log   /var/log/nginx/error.log warn ;
+}
+
+server {  # HTTP #######################################################################################################
+
+    # Listen to port 80 ---------------------------------------------------------------------------------------------- #
+    listen       80 ;
+    listen  [::]:80 ipv6only=on ;
+
+    # Server domain name --------------------------------------------------------------------------------------------- #
+    server_name  kip93.net www.kip93.net ;
+
+    # Just redirect everything to HTTPS ------------------------------------------------------------------------------ #
+    return  301 https://$host$request_uri ;
+}

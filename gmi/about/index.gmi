@@ -1,0 +1,52 @@
+=> ../  ..  -  Go back
+
+```
+   _____________
+  |  _________  |
+  |O|         |O|    ┏━━━┓
+  | |_________| |    ┃   ┃╻
+  | |_________| |    ┣━━━┫┃    ┏━━━┓╻   ╻╺━╋━╸
+  |   _____ __  |    ┃   ┃┣━━━┓┃   ┃┃   ┃  ┃
+  |CH|     |  |V|    ╹   ╹┗━━━┛┗━━━┛┗━━━┛  ┗
+  \__|_____|__|_|
+```
+
+# About
+This is my personal capsule, which I created out of a whim since I really enjoy using the gemini protocol and wanted to try and put something in it. It will probably have little to no content, and it will probably all be pointless rants about stuff no-one cares about. In short, this capsule is just me screaming into the void for the heck of it, and don't expect anyone to read any of this.
+
+=> gemini://gemini.circumlunar.space/  gemini://gemini.circumlunar.space/  -  The gemini protocol home page
+
+This capsule can be accessed either through the gemini protocol or through an HTTP mirror.
+
+=> gemini://kip93.net/        gemini://kip93.net/        -  GEMINI capsule
+=> https://kip93.net/gemini/  https://kip93.net/gemini/  -  HTTP site
+
+## Attributions
+### Software
+The server itself is running agate to serve the gemtext files, and the HTTP mirror content is created based on a custom script that I wrote myself.
+
+=> gemini://qwertqwefsday.eu/agate.gmi  gemini://qwertqwefsday.eu/agate.gmi  -  Agate home page
+=> https://github.com/kip93/kip93.net   https://github.com/kip93/kip93.net   -  kip93.net source code
+
+### Art
+All ASCII art found on these pages was created by yours truly, but I usually look for reference art online. Often times it ends up being a mash-up of half a dozen different designs. Here are my go-to sites when looking for inspiration on ASCII art:
+
+=> https://asciiart.eu/
+=> https://asciiart.website/
+=> https://ascii.co.uk/art
+=> https://textart.io/art/
+
+In particular, I should attribute David Palmer (a.k.a. "dp") with creating what is clearly the art that I used as base for this capsule's logo, which is used front and centre of the homepage. The website where I found his art is:
+
+=> https://www.asciiart.eu/computers/floppies
+
+### Fonts
+Any stylised font used on headers and such are usually hand-modified versions of figlet fonts. The main fonts that I'm using here as base are "future" and "pagga".
+
+=> http://www.figlet.org/
+
+## Licenses
+The content of the capsule itself is licensed under the CC BY 4.0 (except my personal data, for which I reserve all rights), and the accompanying code is distributed under the BSD 3-Clause license.
+
+=> https://github.com/kip93/kip93.net/blob/main/LICENSE_CC_BY_4  https://github.com/kip93/kip93.net/blob/main/LICENSE_CC_BY_4  -  CC BY 4.0 license
+=> https://github.com/kip93/kip93.net/blob/main/LICENSE_BSD3     https://github.com/kip93/kip93.net/blob/main/LICENSE_BSD3     -  BSD 3-Clause license

@@ -1,0 +1,635 @@
+#!/usr/bin/env python3
+
+"""Gemtext to HTML converter.
+
+References:
+  * Gemini spec:        gemini://gemini.circumlunar.space/docs/specification.gmi
+  * Gemini test suite:  gemini://gemini.conman.org/test/torture
+"""
+
+import re as regex
+
+from os.path import dirname
+from pathlib import Path
+from typing import Dict, Generator, List, TextIO, Union, overload
+
+
+########################################################################################################################
+# CONFIG                                                                                                               #
+########################################################################################################################
+
+# Root path of HTML server.
+HTML = Path(dirname(__file__)).resolve() / "html"
+# Root path of gemini server.
+SRC = Path(dirname(__file__)).resolve() / "gmi"
+# Path within HTML server where the new files will be served (can be the HTML root).
+DST = HTML / "gemini"
+# Path within HTML server where the raw files will be served (can be the same as DST).
+RAW = DST / "raw"
+# CSS paths inside of the HTML root.
+CSS = [
+    DST / "style.css",
+]
+# Favicon paths inside of the HTML root.
+FAVICONS = [
+    DST / "favicon-16x16.png",
+    DST / "favicon-32x32.png",
+    DST / "favicon.ico",
+    DST / "favicon.svg",
+]
+# Resources needed for the website.
+PREFETCH = [  # Low priority.
+]
+PRELOAD = [  # High priority.
+]
+
+########################################################################################################################
+# VALIDATIONS                                                                                                          #
+########################################################################################################################
+
+assert isinstance(HTML, Path)
+assert not HTML.exists() or HTML.is_dir()
+assert HTML.is_absolute()
+
+assert isinstance(SRC, Path)
+assert SRC.exists() and SRC.is_dir()
+assert SRC.is_absolute()
+assert len(list(SRC.rglob("*.gmi")) + list(SRC.rglob("*.gemini"))) > 0
+
+assert isinstance(DST, Path)
+assert not DST.exists() or DST.is_dir()
+assert DST.is_absolute()
+assert HTML in DST.parents
+
+assert isinstance(RAW, Path)
+assert not RAW.exists() or RAW.is_dir()
+assert RAW.is_absolute()
+assert HTML in RAW.parents
+
+assert all(isinstance(css, Path) for css in CSS)
+assert all(css.exists() and css.is_file() for css in CSS)
+assert all(css.is_absolute() for css in CSS)
+
+assert all(isinstance(favicon, Path) for favicon in FAVICONS)
+assert all(favicon.exists() and favicon.is_file() for favicon in FAVICONS)
+assert all(favicon.is_absolute() for favicon in FAVICONS)
+
+########################################################################################################################
+# GLOBALS                                                                                                              #
+########################################################################################################################
+
+# RegEx
+# -------------------------------------------------------------------------------------------------------------------- #
+
+# A pattern to be matched against each line individually.
+# Each match group represents a different part of the gemtext spec.
+GEMTEXT_PATTERN = regex.compile(
+    r"""^(?:(?#
+        5.4.3 Preformatted                     )`{3}\s*(.*?)\s*(?#   0:alt text)|(?#
+        5.5.1 Heading                          )(#{1,6})(?!#)(?#     1:depth
+                                               )\s*(.+?)\s*(?#       2:heading)|(?#
+        5.4.2 Links                            )=>\s*(\S+)(?#        3:href
+                                               )(?:\s*(.*?)\s*)?(?#  4:placeholder)|(?#
+        5.5.2 List                             )\*\s+(.+?)\s*(?#     5:item)|(?#
+        5.5.3 Quote                            )>\s*(.+?)\s*(?#      6:quote)|(?#
+        5.4.1 Line break or 5.4.4 Preformatted )(\s*$)(?#            7:empty)|(?#
+        5.4.1 Plain or 5.4.4 Preformatted      )\s*(.*?)\s*(?#       8:text))(?#
+    )$"""
+)
+# A pattern to look for the first top level heading.
+TITLE_PATTERN = regex.compile("^#(?!#)[\\t ]*(.+)(?#  0:title)$", regex.M)
+
+########################################################################################################################
+# UTILS                                                                                                                #
+########################################################################################################################
+
+
+# Paths, files, & directories
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
+def prepare(folder: Path) -> None:
+    """Prepare the given folder. Cleans any previous HTML files and empty directories.
+
+    :param folder: The folder to prepare.
+    """
+
+    for path in folder.rglob("*.html"):
+        if path.is_file():
+            path.unlink()
+
+    for path in folder.rglob("*"):
+        if path.is_dir() and not list(path.glob("*")):
+            path.rmdir()
+
+
+def mkdir(path: Path) -> Path:
+    """Create a directory at the given path.
+
+    :param path: A path to a new directory.
+
+    :return: The exact same path.
+    """
+
+    assert not path.exists() or path.is_dir()
+    path.mkdir(0o755, True, True)
+
+    return path
+
+
+def list_files(path: Path) -> Generator[Path, None, None]:
+    """Iterates over a path recursively looking for gemtext files.
+
+    :param path: The file to be iterated.
+
+    :return: A generator of paths to gemtext files.
+    """
+
+    for p in path.rglob("*.gmi"):
+        if p.is_file():
+            yield p
+
+    for p in path.rglob("*.gemini"):
+        if p.is_file():
+            yield p
+
+
+def open_file(path: Path) -> TextIO:
+    """Open a file at the given path for writing, overwriting any existing content.
+
+    :param path: The path to the new file.
+
+    :return: The opened file.
+    """
+
+    path.touch(0o644)
+
+    return path.open("w", encoding="UTF-8")
+
+
+@overload
+def write_text(dst: TextIO, src: Path) -> TextIO:
+    """Write some text into a file.
+
+    :param dst: The file to write into.
+    :param src: The file to read from.
+
+    :return: The same file.
+    """
+
+
+@overload
+def write_text(file: TextIO, *text: str) -> TextIO:
+    """Write some text into a file.
+
+    :param file: The file to write into.
+    :param text: The text to write. It gets appended as-is, without any separator.
+
+    :return: The same file.
+    """
+
+
+# Implementation
+def write_text(file: TextIO, *args: Union[str, Path]) -> TextIO:
+    if len(args) != 1 or isinstance(args[0], str):
+        file.writelines(args)
+
+    else:
+        file.write(read_text(args[0]))
+
+    return file
+
+
+def read_text(path: Path) -> str:
+    """Read a file as UTF-8.
+
+    :param path: The file to be read.
+
+    :return: The file's content.
+    """
+
+    return path.read_text("UTF-8")
+
+
+def read_lines(path: Path) -> List[str]:
+    """Read a file as UTF-8, and split it into lines.
+
+    :param path: The file to be read.
+
+    :return: The file's content.
+    """
+
+    return read_text(path).splitlines()
+
+
+def get_title(path: Path) -> str:
+    """Read a gemtext file and extract the title.
+
+    :param path: A gemtext file path.
+
+    :return: The first heading of the file, or default to the file name.
+    """
+
+    global TITLE_PATTERN
+
+    match = TITLE_PATTERN.search(read_text(path))
+
+    return match.group(1) if match else path.name
+
+
+def get_raw(src: Path) -> Path:
+    """Get a path pointing to where there raw content is located.
+
+    :param src: The path to the source file.
+
+    :return: The path to the raw file.
+    """
+
+    global DST, RAW, SRC
+
+    if DST == RAW:
+        return RAW / src.relative_to(SRC).with_name(
+            f"{src.with_suffix('').name}_raw"
+        ).with_suffix(".html")
+
+    else:
+        return RAW / src.relative_to(SRC).with_name(
+            src.with_suffix("").name
+        ).with_suffix(".html")
+
+
+def get_dst(src: Path) -> Path:
+    """Get a path pointing to where there html content is located.
+
+    :param src: The path to the source file.
+
+    :return: The path to the html file.
+    """
+
+    global DST, SRC
+
+    return DST / src.relative_to(SRC).with_suffix(".html")
+
+
+def get_parent(dst: Path) -> Path:
+    """Get the parent of this file inside of DST, or default to DST.
+
+    :param dst: The path to process.
+
+    :return: The path's parent.
+    """
+
+    global DST
+
+    return dst.parent.parent if DST in dst.parent.parents else DST
+
+
+# HTML
+# -------------------------------------------------------------------------------------------------------------------- #
+
+
+def html_escape(text: str) -> str:
+    """Escape special HTML characters.
+
+    :param text: The unsafe text to be escaped.
+
+    :return: The escaped text.
+    """
+
+    return "".join(
+        c
+        if c.lower()
+        in "abcdefghijklmnopqrstuvwxyz \n\t0123456789!#$*+-/.,:;=?@|\\_()[]{}"
+        else f"&#x{ord(c):X};"
+        for c in text
+    )
+
+
+def create_tag(
+    name: str,
+    attributes: Dict[str, str] = {},
+    content: str = "",
+    escape_content: bool = True,
+) -> str:
+
+    """Formats HTML tags and escapes all values that need to do so.
+
+    :param name: The name of the tag.
+    :param attributes: Any attributes that the tag has.
+    :param content: The content of the tag.
+    :param escape_content: Whether the content needs to be HTML escaped (i.e. text) or not (i.e. nested tag)
+
+    :return: A string with the tag.
+    """
+
+    if name in {"br", "link", "meta"}:  # Void elements (subset of all void elements)
+        assert not content
+
+        return f"""<{name}{''.join(f" {k}='{html_escape(v)}'" for k, v in attributes.items())}/>"""
+
+    return (
+        f"""<{name}{''.join(f" {k}='{html_escape(v)}'" for k, v in attributes.items())}>"""
+        f"{html_escape(content) if escape_content else content}"
+        f"</{name}>"
+    )
+
+
+def create_uri(path: Path) -> str:
+    """Make an URI for the given file.
+
+    :param path: A file inside the HTML folder.
+
+    :return: The URI relative to the HTML folder.
+    """
+
+    global HTML
+
+    return f"/{path.relative_to(HTML).as_posix()}"
+
+
+def create_header(title: str) -> str:
+    """Create the DOCTYPE and head HTML.
+
+    :param title: The title of the page.
+
+    :return: The document start (with an unclosed <html> tag).
+    """
+
+    global CSS, FAVICONS, HTML
+
+    tags = f"\n\t{create_tag('title', {}, title)}\n"
+    tags += f"\t{create_tag('meta', {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'})}\n"
+
+    for resource in PREFETCH:
+        tags += f"\t{create_tag('link', {'rel': 'prefetch', 'href': create_uri(resource)})}\n"
+
+    for resource in PRELOAD:
+        tags += f"\t{create_tag('link', {'rel': 'preload', 'href': create_uri(resource)})}\n"
+
+    for css in CSS:
+        tags += f"\t{create_tag('link', {'rel': 'preload stylesheet', 'href': create_uri(css)})}\n"
+
+    for favicon in FAVICONS:
+        tags += (
+            f"\t{create_tag('link', {'rel': 'icon', 'href': create_uri(favicon)})}\n"
+        )
+
+    return f"<!DOCTYPE html><html lang='en-GB'>{create_tag('head', {}, tags, False)}"
+
+
+def create_navbar(src: Path) -> str:
+    """Create a navigation bar to be placed at the top of the body.
+
+    :param src: The source gemtext file.
+
+    :return: The navigation bar HTML.
+    """
+
+    navbar = f" {'-' * 3} "
+    navbar += f"[ {create_tag('a', {'href': create_uri(DST), 'class': 'inline'}, html_escape('root'))} ]"
+    navbar += f" {'-' * 2} "
+    parent_uri = create_uri(get_parent(get_dst(src)))
+    navbar += f"[ {create_tag('a', {'href': parent_uri, 'class': 'inline'}, html_escape('parent'))} ]"
+    navbar += f" {'-' * 2} "
+    navbar += f"[ {create_tag('a', {'href': create_uri(get_raw(src)), 'class': 'inline'}, html_escape('raw'))} ]"
+    navbar += f" {'-' * 3} "
+
+    return f"{create_tag('p', {}, navbar, False)}{create_tag('br')}"
+
+
+def create_paragraph(text: str) -> str:
+    """Create a p HTML tag.
+
+    :param text: The text to be escaped and placed inside the tag.
+
+    :return: The tag and its content.
+    """
+
+    return create_tag("p", {}, text)
+
+
+def create_linebreak() -> str:
+    """Create a br HTML tag.
+
+    :return: The HTML tag.
+    """
+
+    return create_tag("br")
+
+
+def create_preformatted(alt: str, *lines: str) -> str:
+    """Create a pre HTML tag.
+
+    :param alt: The alt text for the content.
+    :param lines: The lines that need to be shown verbatim.
+
+    :return: The HTML tag with all the given info.
+    """
+
+    return create_tag(
+        "pre",
+        {"title": alt} if alt else {},
+        create_tag("code", {}, "".join(f"{line.rstrip()}\n" for line in lines)),
+        False,
+    )
+
+
+def create_link(url: str, placeholder: str) -> str:
+    """Create an a HTML tag
+
+    :param url: The target for the link.
+    :param placeholder: The human readable text to show. Defaults to url.
+
+    :return: The HTML tag with all the given info.
+    """
+
+    if url[:9] == "gemini://":
+        url = f"https://portal.mozz.us/gemini/{url[9:]}"
+
+    elif url[:2] == "//":
+        url = f"https://portal.mozz.us/gemini/{url[2:]}"
+
+    elif url[:1] == "/":
+        url = regex.sub(r"\.gmi|\.gemini$", ".html", create_uri(DST / url[1:]))
+
+    else:
+        url = regex.sub(r"\.gmi|\.gemini$", ".html", url)
+
+    return create_tag(
+        "p",
+        {"class": "link"},
+        create_tag("a", {"href": url}, placeholder or url),
+        False,
+    )
+
+
+def create_quote(quote: str) -> str:
+    """Create a blockquote HTML tag
+
+    :param quote: The quoted text.
+
+    :return: The HTML tag with all the given info.
+    """
+
+    return create_tag("blockquote", {}, quote)
+
+
+def create_heading(depth: int, heading: str) -> str:
+    """Create an hN HTML tag
+
+    :param depth: The heading level.
+    :param heading: The heading text.
+
+    :return: The HTML tag with all the given info.
+    """
+    return create_tag(f"h{depth}", {}, f"{heading}")
+
+
+def create_listing(*lines: str) -> str:
+    """Create an ul HTML tag.
+
+    :param lines: The lines that need to be listed.
+
+    :return: The HTML tag with all the given info.
+    """
+
+    return create_tag(
+        "ul",
+        {},
+        "\n" + "".join(f"\t{create_tag('li', {}, line)}\n" for line in lines),
+        False,
+    )
+
+
+def create_body(src: Path) -> str:
+    """Create the HTML body.
+
+    :param src: The source gemtext file.
+
+    :return: The document end (with an closing </html> tag).
+    """
+
+    body = f"\n\t{create_navbar(src)}\n"
+
+    preformatted = False
+    alt = ""
+    lines = []
+    listing = False
+    for line in read_lines(src):
+        groups = GEMTEXT_PATTERN.fullmatch(line).groups()
+
+        # Spec 5.5.2 Unordered list items
+        if groups[5] is not None:
+            if not listing:
+                lines = []
+                listing = True
+
+            lines.append(groups[5])
+            continue
+
+        elif listing:
+            body += "".join(
+                f"\t{line}\n" for line in create_listing(*lines).splitlines()
+            )
+            listing = False
+
+        # Spec 5.4.3 Preformatting toggle lines
+        if groups[0] is not None:
+            if preformatted:
+                body += f"\t{create_preformatted(alt, *lines)}\n"
+
+            else:
+                lines = []
+                alt = groups[0]
+
+            preformatted = not preformatted
+
+        # Spec 5.4.4 Preformatted text lines
+        elif preformatted:
+            lines.append(line)
+
+        # Spec 5.4.2 Link lines
+        elif groups[3] is not None:
+            body += f"\t{create_link(groups[3], groups[4])}\n"
+
+        # Spec 5.5.1 Heading lines
+        elif groups[1] is not None:
+            body += f"\t{create_heading(len(groups[1]), groups[2])}\n"
+
+        # Spec 5.5.3 Quote lines
+        elif groups[6] is not None:
+            body += f"\t{create_quote(groups[6])}\n"
+
+        # Spec 5.4.1 Text lines
+        elif groups[8] is not None:
+            body += f"\t{create_paragraph(groups[8])}\n"
+
+        # Spec 5.4.1 Text lines (empty)
+        elif groups[7] is not None:
+            body += f"\t{create_linebreak()}\n"
+
+    if listing:  # Make sure that the ul tag is closed.
+        body += "".join(f"\t{line}\n" for line in create_listing(*lines).splitlines())
+
+    return f"{create_tag('body', {}, body, False)}</html>\n"
+
+
+def write_header(file: TextIO, title: str) -> TextIO:
+    """Write the DOCTYPE and head HTML into the file.
+
+    :param file: The file to write into.
+    :param title: The title of the page.
+
+    :return: The same file.
+    """
+
+    file.write(create_header(title))
+
+    return file
+
+
+def write_body(file: TextIO, src: Path) -> TextIO:
+    """Write the body, followed by the closing html tag into the file.
+
+    :param file: The file to write into.
+    :param src: The source gemtext file.
+
+    :return: The same file.
+    """
+
+    file.write(create_body(src))
+
+    return file
+
+
+########################################################################################################################
+# MAIN                                                                                                                 #
+########################################################################################################################
+
+
+def main() -> None:
+    """Main function. Finds and transforms all gemtext files into HTML."""
+
+    prepare(DST)
+
+    for src in list_files(SRC):
+        raw = get_raw(src)
+        mkdir(raw.parent)
+        with open_file(raw) as raw_file:
+            write_text(
+                raw_file,
+                f"""<!DOCTYPE html><html lang='en-GB'><head>{''.join(
+                    create_tag('link', {'rel': 'icon', 'href': create_uri(favicon)})
+                    for favicon in FAVICONS
+                )}</head><body><pre>\n{html_escape(read_text(src))}</pre></body></html>""",
+            )
+
+    for src in list_files(SRC):
+        dst = DST / src.relative_to(SRC).with_suffix(".html")
+        mkdir(dst.parent)
+        with dst.open("w") as dst_file:
+            write_body(write_header(dst_file, get_title(src)), src)
+
+
+if __name__ == "__main__":
+    main()
