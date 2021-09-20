@@ -12,20 +12,20 @@ For more info on usage permissions, see the [license](./LICENSE.md).
 <table align="center">
     <tbody>
         <tr>
-            <th align="center">Home page</th>
-            <th align="center">Résumé page</th>
+            <th align="center"><a href="https://kip93.net/">Home page</a></th>
+            <th align="center"><a href="https://kip93.net/resume/">Résumé page</a></th>
         </tr>
         <tr>
-            <td><img src="./metrics/home.svg"/></td>
-            <td><img src="./metrics/resume.svg"/></td>
+            <td><a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fkip93.net%2F"><img src="./metrics/home.svg"/></a></td>
+            <td><a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fkip93.net%2Fresume%2F"><img src="./metrics/resume.svg"/></a></td>
         </tr>
         <tr>
-            <th align="center">About page</th>
-            <th align="center">Gemini mirror</th>
+            <th align="center"><a href="https://kip93.net/about/">About page</a></th>
+            <th align="center"><a href="https://kip93.net/gemini/">Gemini mirror</a></th>
         </tr>
         <tr>
-            <td><img src="./metrics/about.svg"/></td>
-            <td><img src="./metrics/gemini.svg"/></td>
+            <td><a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fkip93.net%2Fabout%2F"><img src="./metrics/about.svg"/></a></td>
+            <td><a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fkip93.net%2Fgemini%2F"><img src="./metrics/gemini.svg"/></a></td>
         </tr>
         <tr>
             <td colspan="2" align="right"><em>
