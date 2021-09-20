@@ -24,6 +24,7 @@ jobs:
           output_action: commit
           committer_branch: main
           committer_message: Update ${filename} - [GitHub Action]
+          plugins_errors_fatal: yes
           config_timezone: Etc/UTC
 
           # Output file
@@ -55,6 +56,7 @@ jobs:
           output_action: commit
           committer_branch: main
           committer_message: Update ${filename} - [GitHub Action]
+          plugins_errors_fatal: yes
           config_timezone: Etc/UTC
 
           # Output file
@@ -86,6 +88,7 @@ jobs:
           output_action: commit
           committer_branch: main
           committer_message: Update ${filename} - [GitHub Action]
+          plugins_errors_fatal: yes
           config_timezone: Etc/UTC
 
           # Output file
@@ -117,6 +120,7 @@ jobs:
           output_action: commit
           committer_branch: main
           committer_message: Update ${filename} - [GitHub Action]
+          plugins_errors_fatal: yes
           config_timezone: Etc/UTC
 
           # Output file
