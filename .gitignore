@@ -2,6 +2,7 @@
 /**/*
 
 # Except:
+!/.github/
 !/.gitignore
 !/agate/
 !/g2h
@@ -10,7 +11,9 @@
 !/LICENSE.md
 !/LICENSE_BSD3
 !/LICENSE_CC_BY_4
+!/metrics/
 !/nginx/
 !/README.md
 !/setup.cfg
 !/shell.nix
+!/TEMPLATE.md
