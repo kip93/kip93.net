@@ -1,0 +1,159 @@
+# Workflow to automatically update my website's PageSpeed insights in the README
+# Based on https://github.com/lowlighter/metrics/
+
+name: GitHub profile README generator
+on:  # When to run the workflow
+  schedule: [{cron: "0 4 * * 6"}]  # Every Saturday @ 04:00
+  push: {branches: ["main"]}  # When pushing to main
+
+concurrency:  # Queue workflows rather than overlap them
+  group: metrics
+
+jobs:
+  resources:  # Generate the SVGs that will be used in the README
+    name: Generate resources
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update home.svg
+        uses: lowlighter/metrics@latest
+        with:
+          # Common config
+          user: kip93
+          token: ${{ secrets.TOKEN }}
+          output_action: commit
+          committer_branch: main
+          committer_message: Update ${filename} - [GitHub Action]
+          config_timezone: Etc/UTC
+
+          # Output file
+          template: classic
+          config_display: regular
+          filename: metrics/home.svg
+          config_output: svg
+
+          # Output info
+          base: ""
+          plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_detailed: yes  # Show detailed results
+          plugin_pagespeed_screenshot: no  # Do not take a screen capture
+          plugin_pagespeed_url: https://kip93.net/  # Webpage to audit
+          extras_css: |  # Make it prettier
+            * { font-size: 16px; }
+            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 4px !important; }
+            .categories { margin-bottom: 6px !important; }
+            .audits >section:last-child { flex: 0 !important; }
+
+      - name: Update resume.svg
+        uses: lowlighter/metrics@latest
+        with:
+          # Common config
+          user: kip93
+          token: ${{ secrets.TOKEN }}
+          output_action: commit
+          committer_branch: main
+          committer_message: Update ${filename} - [GitHub Action]
+          config_timezone: Etc/UTC
+
+          # Output file
+          template: classic
+          config_display: regular
+          filename: metrics/resume.svg
+          config_output: svg
+
+          # Output info
+          base: ""
+          plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_detailed: yes  # Show detailed results
+          plugin_pagespeed_screenshot: no  # Do not take a screen capture
+          plugin_pagespeed_url: https://kip93.net/resume/  # Webpage to audit
+          extras_css: |  # Make it prettier
+            * { font-size: 16px; }
+            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 4px !important; }
+            .categories { margin-bottom: 6px !important; }
+            .audits >section:last-child { flex: 0 !important; }
+
+      - name: Update about.svg
+        uses: lowlighter/metrics@latest
+        with:
+          # Common config
+          user: kip93
+          token: ${{ secrets.TOKEN }}
+          output_action: commit
+          committer_branch: main
+          committer_message: Update ${filename} - [GitHub Action]
+          config_timezone: Etc/UTC
+
+          # Output file
+          template: classic
+          config_display: regular
+          filename: metrics/about.svg
+          config_output: svg
+
+          # Output info
+          base: ""
+          plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_detailed: yes  # Show detailed results
+          plugin_pagespeed_screenshot: no  # Do not take a screen capture
+          plugin_pagespeed_url: https://kip93.net/about/  # Webpage to audit
+          extras_css: |  # Make it prettier
+            * { font-size: 16px; }
+            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 4px !important; }
+            .categories { margin-bottom: 6px !important; }
+            .audits >section:last-child { flex: 0 !important; }
+
+      - name: Update gemini.svg
+        uses: lowlighter/metrics@latest
+        with:
+          # Common config
+          user: kip93
+          token: ${{ secrets.TOKEN }}
+          output_action: commit
+          committer_branch: main
+          committer_message: Update ${filename} - [GitHub Action]
+          config_timezone: Etc/UTC
+
+          # Output file
+          template: classic
+          config_display: regular
+          filename: metrics/gemini.svg
+          config_output: svg
+
+          # Output info
+          base: ""
+          plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_detailed: yes  # Show detailed results
+          plugin_pagespeed_screenshot: no  # Do not take a screen capture
+          plugin_pagespeed_url: https://kip93.net/gemini/  # Webpage to audit
+          extras_css: |  # Make it prettier
+            * { font-size: 16px; }
+            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 4px !important; }
+            .categories { margin-bottom: 6px !important; }
+            .audits >section:last-child { flex: 0 !important; }
+
+  readme:  # Use the template and generated resources to update the README
+    name: Generate README
+    needs: [resources]  # Run after the previous job is finished
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update README.md
+        uses: lowlighter/metrics@latest
+        with:
+          # Common config
+          user: kip93
+          token: ${{ secrets.TOKEN }}
+          output_action: commit
+          committer_branch: main
+          committer_message: Update ${filename} - [GitHub Action]
+          config_timezone: Etc/UTC
+
+          # Input file
+          markdown: https://raw.githubusercontent.com/kip93/kip93.net/main/TEMPLATE.md
+
+          # Output file
+          template: markdown
+          filename: README.md
+          config_output: markdown
