@@ -47,6 +47,7 @@ jobs:
             .categories { margin-bottom: 10px !important; }
             text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
+            .audit.text { min-width: 48px; }
 
       - name: Update resume.svg
         uses: lowlighter/metrics@latest
@@ -80,6 +81,7 @@ jobs:
             .categories { margin-bottom: 10px !important; }
             text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
+            .audit.text { min-width: 48px; }
 
       - name: Update about.svg
         uses: lowlighter/metrics@latest
@@ -113,6 +115,7 @@ jobs:
             .categories { margin-bottom: 10px !important; }
             text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
+            .audit.text { min-width: 48px; }
 
       - name: Update gemini.svg
         uses: lowlighter/metrics@latest
@@ -146,6 +149,7 @@ jobs:
             .categories { margin-bottom: 10px !important; }
             text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
+            .audit.text { min-width: 48px; }
 
   readme:  # Use the template and generated resources to update the README
     name: Generate README
