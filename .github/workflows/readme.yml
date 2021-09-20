@@ -41,10 +41,11 @@ jobs:
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/  # Webpage to audit
           extras_css: |  # Make it prettier
-            * { font-size: 16px; }
-            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
-            .field { margin-bottom: 4px !important; }
-            .categories { margin-bottom: 6px !important; }
+            * { font-size: 18px; }
+            h2, h2 +.field { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 5px !important; }
+            .categories { margin-bottom: 10px !important; }
+            text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
 
       - name: Update resume.svg
@@ -73,10 +74,11 @@ jobs:
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/resume/  # Webpage to audit
           extras_css: |  # Make it prettier
-            * { font-size: 16px; }
-            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
-            .field { margin-bottom: 4px !important; }
-            .categories { margin-bottom: 6px !important; }
+            * { font-size: 18px; }
+            h2, h2 +.field { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 5px !important; }
+            .categories { margin-bottom: 10px !important; }
+            text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
 
       - name: Update about.svg
@@ -105,10 +107,11 @@ jobs:
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/about/  # Webpage to audit
           extras_css: |  # Make it prettier
-            * { font-size: 16px; }
-            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
-            .field { margin-bottom: 4px !important; }
-            .categories { margin-bottom: 6px !important; }
+            * { font-size: 18px; }
+            h2, h2 +.field { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 5px !important; }
+            .categories { margin-bottom: 10px !important; }
+            text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
 
       - name: Update gemini.svg
@@ -137,10 +140,11 @@ jobs:
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/gemini/  # Webpage to audit
           extras_css: |  # Make it prettier
-            * { font-size: 16px; }
-            h2 { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
-            .field { margin-bottom: 4px !important; }
-            .categories { margin-bottom: 6px !important; }
+            * { font-size: 18px; }
+            h2, h2 +.field { margin: 0px; opacity: 0%; width: 0px; height: 0px; }
+            .field { margin-bottom: 5px !important; }
+            .categories { margin-bottom: 10px !important; }
+            text { font-size: 46px !important; }
             .audits >section:last-child { flex: 0 !important; }
 
   readme:  # Use the template and generated resources to update the README
