@@ -34,6 +34,7 @@ jobs:
           # Output info
           base: ""
           plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes  # Show detailed results
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/  # Webpage to audit
@@ -64,6 +65,7 @@ jobs:
           # Output info
           base: ""
           plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes  # Show detailed results
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/resume/  # Webpage to audit
@@ -94,6 +96,7 @@ jobs:
           # Output info
           base: ""
           plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes  # Show detailed results
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/about/  # Webpage to audit
@@ -124,6 +127,7 @@ jobs:
           # Output info
           base: ""
           plugin_pagespeed: yes  # Get PageSpeed insights
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes  # Show detailed results
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
           plugin_pagespeed_url: https://kip93.net/gemini/  # Webpage to audit
