@@ -7,6 +7,36 @@ scripts and shit.
 For more info on usage permissions, see the [license](./LICENSE.md).
 
 
+## Audits
+
+<table align="center">
+    <tbody>
+        <tr>
+            <th align="center">Home page</th>
+            <th align="center">Résumé page</th>
+        </tr>
+        <tr>
+            <td><img src="./metrics/home.svg"/></td>
+            <td><img src="./metrics/resume.svg"/></td>
+        </tr>
+        <tr>
+            <th align="center">About page</th>
+            <th align="center">Gemini mirror</th>
+        </tr>
+        <tr>
+            <td><img src="./metrics/about.svg"/></td>
+            <td><img src="./metrics/gemini.svg"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right"><em>
+                Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.13.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
+                Last updated @ 20/09/2021, 22:04 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
+            </em></td>
+        </tr>
+    </tbody>
+</table>
+
+
 ## Overview
 
 This is a summary of the contents of this repo.
