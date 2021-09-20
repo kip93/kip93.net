@@ -1,8 +1,8 @@
 # kip93.net
 
-This repo contains all the info on my personal website, as well as some scripts and configurations. The purpose of this
-is 2 fold: for one, I want to keep the website version controlled to help me track changes on the site's content; and 2
-I like to make this freely available for anyone to maybe reuse some of my scripts and shit.
+This repo contains all the info on my personal website, as well as some scripts and configurations. The purpose of this is 2 fold: for one, I want to keep the
+website version controlled to help me track changes on the site's content; and 2 I like to make this freely available for anyone to maybe reuse some of my
+scripts and shit.
 
 For more info on usage permissions, see the [license](./LICENSE.md).
 
@@ -13,39 +13,36 @@ This is a summary of the contents of this repo.
 
 ### HTML website
 
-The folder [html](./html) contains the content to be shown at [https://kip93.net/](https://kip93.net/), which is served
-by [nginx](https://nginx.com/), as defined in [this config file](./nginx/sites-available/website).
+The folder [html](./html) contains the content to be shown at [https://kip93.net/](https://kip93.net/), which is served by [nginx](https://nginx.com/), as
+defined in [this config file](./nginx/sites-available/website).
 
 ### GEMINI capsule
 
-This is the content available @ [gemini://kip93.net/](gemini://kip93.net/), based on the contents of the [gmi](./gmi)
-folder. These pages are handled by [agate](https://github.com/mbrubeck/agate), which has its configurations defined
-[here](./agate/agate.service).
+This is the content available @ [gemini://kip93.net/](gemini://kip93.net/), based on the contents of the [gmi](./gmi) folder. These pages are handled by
+[agate](https://github.com/mbrubeck/agate), which has its configurations defined [here](./agate/agate.service).
 
-**NOTE:** For better accessibility of the content, I also mirror and expose the same info on
-[https://kip93.net/gemini/](https://kip93.net/gemini/) as I do on gemini.
+**NOTE:** For better accessibility of the content, I also mirror and expose the same info on [https://kip93.net/gemini/](https://kip93.net/gemini/) as I do on
+gemini.
 
 ### Gemtext to HTML script
 
-Included in this repo is [a script](./g2h) that I use to convert the `.gmi` files into `.html` ones. The result of which
-is what you can see when you go to [https://kip93.net/gemini/](https://kip93.net/gemini/), the file has been parsed and
-formatted and styled to be able to be rendered in a regular browser.
+Included in this repo is [a script](./g2h) that I use to convert the `.gmi` files into `.html` ones. The result of which is what you can see when you go to
+[https://kip93.net/gemini/](https://kip93.net/gemini/), the file has been parsed and formatted and styled to be able to be rendered in a regular browser.
 
-To use the file you simply need `python3.6+` installed (and a UNIX-like machine, such as Mac or Linux). The file itself
-is executable so just open a terminal and type `./g2h` regenerate the files.
+To use the file you simply need `python3.6+` installed (and a UNIX-like machine, such as Mac or Linux). The file itself is executable so just open a terminal
+and type `./g2h` regenerate the files.
 
 
 ## Setting up the server
 
 These steps should be done before anything else to ensure that the server has at least a basic level of security.
 
-**DISCLAIMER:** I am no security expert. These configurations are what I have gathered from multiple online sources, but
-I cannot vouch for their veracity or effectiveness.
+**DISCLAIMER:** I am no security expert. These configurations are what I have gathered from multiple online sources, but I cannot vouch for their veracity or
+effectiveness.
 
 ### User
 
-The first step should be to set up a non-privileged user to connect to the server. For that we will log in this once
-using the root user and run:
+The first step should be to set up a non-privileged user to connect to the server. For that we will log in this once using the root user and run:
 
 ```shell
 # Install sudo (or doas if you so prefer) to allow us to run certain commands as root (example here is using apt for Debian based distros).
@@ -59,8 +56,8 @@ exit
 
 ### Firewall
 
-This sets up a simple firewall through the use of [ufw](https://git.launchpad.net/ufw/tree/README), but if your server
-provider already includes a firewall you can use that instead if you want.
+This sets up a simple firewall through the use of [ufw](https://git.launchpad.net/ufw/tree/README), but if your server provider already includes a firewall you
+can use that instead if you want.
 
 ```shell
 # Install the firewall (example here is using apt for Debian based distros).
@@ -106,8 +103,7 @@ sudo systemctl restart sshd
 
 ### Auto ban
 
-To deter attackers we can ban them after the server detects several failed connection attempts by using
-[fail2ban](https://www.fail2ban.org/).
+To deter attackers we can ban them after the server detects several failed connection attempts by using [fail2ban](https://www.fail2ban.org/).
 
 ```shell
 # Install the program (example here is using apt for Debian based distros).
@@ -135,14 +131,13 @@ net.ipv6.conf.all.accept_source_route=0
 net.ipv4.conf.all.log_martians=1
 ```
 
-This enables extra security features intended for a website server. If you are using the server for other purposes you
-will have to see which values are right for you. Maybe [this archwiki page](https://wiki.archlinux.org/index.php/Sysctl)
-can help with that.
+This enables extra security features intended for a website server. If you are using the server for other purposes you will have to see which values are right
+for you. Maybe [this archwiki page](https://wiki.archlinux.org/index.php/Sysctl) can help with that.
 
 ### Keep the system up to date
 
-You should regularly update your system, lest a new vulnerability patch shows up and you miss them. On Debian, you can
-configure auto updates by installing the `unattended-upgrades` package.
+You should regularly update your system, lest a new vulnerability patch shows up and you miss them. On Debian, you can configure auto updates by installing the
+`unattended-upgrades` package.
 
 ```shell
 apt install unattended-upgrades
@@ -150,16 +145,15 @@ apt install unattended-upgrades
 
 ### Finished?
 
-These steps should provide a nice base, but there are always more things that can be done to improve security. There is
-no 100% safe system, so you should check stuff as website business purpose and expected traffic to determine how far you
-should go with your defenses. And don't forget to frequently revise and update your security measures to stay on top of
-attackers.
+These steps should provide a nice base, but there are always more things that can be done to improve security. There is no 100% safe system, so you should check
+stuff as website business purpose and expected traffic to determine how far you should go with your defences. And don't forget to frequently revise and update
+your security measures to stay on top of attackers.
 
 
 ## Setting up page
 
-Now that the server is ready, we need to configure it so that the website content is exposed to the internet. The
-commands shown beneath are what I use for my workflow, but it is certainly not the only approach available.
+Now that the server is ready, we need to configure it so that the website content is exposed to the internet. The commands shown beneath are what I use for my
+workflow, but it is certainly not the only approach available.
 
 ### Install tools
 
@@ -219,8 +213,7 @@ These online tools do some audits on your website and give you feedback on how t
 
 ### Analyse logs
 
-Looking at the logs can allow you to get an estimate of your website's traffic without the need of using client side
-code.
+Looking at the logs can allow you to get an estimate of your website's traffic without the need of using client side code.
 
 ```shell
 sudo apt install goaccess
