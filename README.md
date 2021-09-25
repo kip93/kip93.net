@@ -30,7 +30,7 @@ For more info on usage permissions, see the [license](./LICENSE.md).
         <tr>
             <td colspan="2" align="right"><em>
                 Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.13.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
-                Last updated @ 20/09/2021, 22:57 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
+                Last updated @ 25/09/2021, 03:34 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
             </em></td>
         </tr>
     </tbody>
@@ -225,7 +225,7 @@ ssh <user@hostname> 'systemctl reload nginx; systemctl restart agate'
 ### Manually renew certificates
 
 ```shell
-# This should not be needed since certbot should autorenew it anyway.
+# This should not be needed since certbot should auto renew it anyway.
 ssh <user@hostname> 'certbot certonly --nginx'
 ```
 
@@ -247,5 +247,6 @@ Looking at the logs can allow you to get an estimate of your website's traffic w
 
 ```shell
 sudo apt install goaccess
-goaccess /var/log/nginx/access.log --log-format='[%^ %x] %h "%m %U %H" -> %s %b %T' --date-format='%*' --time-format='%*'
+./analyse  # If on the server
+./analyse <user@hostname>  # If remoting to the server
 ```
