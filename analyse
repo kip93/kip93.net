@@ -1,0 +1,3 @@
+#!/bin/sh
+
+if [ -z "${1:+X}" ]; then cat '/var/log/nginx/access.log'; else ssh -n "${1}" "cat '/var/log/nginx/access.log'"; fi | goaccess - --log-format='[%^ %x] %h "%m %U %H" -> %s %b %T' --date-format='%*' --time-format='%*' -m --enable-panel=VISITORS --enable-panel=REQUESTS --ignore-panel=REQUESTS_STATIC --ignore-panel=NOT_FOUND --enable-panel=HOSTS --ignore-panel=OS --ignore-panel=BROWSERS --enable-panel=VISIT_TIMES --ignore-panel=VIRTUAL_HOSTS --ignore-panel=REFERRERS --ignore-panel=REFERRING_SITES --ignore-panel=KEYPHRASES --enable-panel=STATUS_CODES --ignore-panel=REMOTE_USER --ignore-panel=CACHE_STATUS --ignore-panel=GEO_LOCATION --ignore-panel=MIME_TYPE --ignore-panel=TLS_TYPE -o report.html

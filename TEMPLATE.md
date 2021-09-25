@@ -225,7 +225,7 @@ ssh <user@hostname> 'systemctl reload nginx; systemctl restart agate'
 ### Manually renew certificates
 
 ```shell
-# This should not be needed since certbot should autorenew it anyway.
+# This should not be needed since certbot should auto renew it anyway.
 ssh <user@hostname> 'certbot certonly --nginx'
 ```
 
@@ -247,5 +247,6 @@ Looking at the logs can allow you to get an estimate of your website's traffic w
 
 ```shell
 sudo apt install goaccess
-goaccess /var/log/nginx/access.log --log-format='[%^ %x] %h "%m %U %H" -> %s %b %T' --date-format='%*' --time-format='%*'
+./analyse  # If on the server
+./analyse <user@hostname>  # If remoting to the server
 ```
