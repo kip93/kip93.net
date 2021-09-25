@@ -84,4 +84,8 @@ server {  # HTTP ###############################################################
 
     # Just redirect everything to HTTPS ------------------------------------------------------------------------------ #
     return  301 https://$host$request_uri ;
+
+    # Logs ----------------------------------------------------------------------------------------------------------- #
+    access_log  /var/log/nginx/access.log custom_format ;
+    error_log   /var/log/nginx/error.log warn ;
 }
