@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
 from pathlib import Path
 from subprocess import run
 from sys import argv as args
@@ -7,15 +8,17 @@ from sys import stdin
 
 
 if args[1:]:
+    # SSH into server and get logs
     logs = run(
         ["ssh", args[1], "python3 -"],
         text=True,
-        input=Path(args[0]).read_text(),
+        input=Path(args[0]).read_text(),  # The contents of this script
         capture_output=True,
         check=True,
     ).stdout
 
 else:
+    # Get log text
     logs = "".join(
         run(["gunzip", "-c", path], text=True, capture_output=True, check=True).stdout
         if str(path).endswith(".gz")
@@ -25,6 +28,7 @@ else:
 
 
 if stdin.isatty():
+    # Create report using the server logs
     run(
         [
             # https://goaccess.io/
@@ -37,7 +41,9 @@ if stdin.isatty():
             "--time-format=%*",
             # HTML output
             "-o",
-            "report.html",
+            str(Path(__file__).parent / "report.html"),
+            f"--html-report-title=Report — {datetime.now().strftime('%Y/%m/%d %H:%M:%S')}",
+            "--no-html-last-updated",
             # Enabled panels
             "--enable-panel=VISITORS",
             "--enable-panel=REQUESTS",
@@ -58,12 +64,14 @@ if stdin.isatty():
             "--ignore-panel=GEO_LOCATION",
             "--ignore-panel=MIME_TYPE",
             "--ignore-panel=TLS_TYPE",
+            # No loading message
+            "--no-parsing-spinner",
         ],
         text=True,
         input=logs,
-        capture_output=True,
         check=True,
     )
 
 else:
+    # On remote server, just print to stdout to be read on the other side
     print(logs.rstrip())
