@@ -1,3 +1,69 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-if [ -z "${1:+X}" ]; then cat '/var/log/nginx/access.log'; else ssh -n "${1}" "cat '/var/log/nginx/access.log'"; fi | goaccess - --log-format='[%^ %x] %h "%m %U %H" -> %s %b %T' --date-format='%*' --time-format='%*' -m --enable-panel=VISITORS --enable-panel=REQUESTS --ignore-panel=REQUESTS_STATIC --ignore-panel=NOT_FOUND --enable-panel=HOSTS --ignore-panel=OS --ignore-panel=BROWSERS --enable-panel=VISIT_TIMES --ignore-panel=VIRTUAL_HOSTS --ignore-panel=REFERRERS --ignore-panel=REFERRING_SITES --ignore-panel=KEYPHRASES --enable-panel=STATUS_CODES --ignore-panel=REMOTE_USER --ignore-panel=CACHE_STATUS --ignore-panel=GEO_LOCATION --ignore-panel=MIME_TYPE --ignore-panel=TLS_TYPE -o report.html
+from pathlib import Path
+from subprocess import run
+from sys import argv as args
+from sys import stdin
+
+
+if args[1:]:
+    logs = run(
+        ["ssh", args[1], "python3 -"],
+        text=True,
+        input=Path(args[0]).read_text(),
+        capture_output=True,
+        check=True,
+    ).stdout
+
+else:
+    logs = "".join(
+        run(["gunzip", "-c", path], text=True, capture_output=True, check=True).stdout
+        if str(path).endswith(".gz")
+        else run(["cat", path], text=True, capture_output=True, check=True).stdout
+        for path in Path("/var/log/nginx/").expanduser().resolve().rglob("access*")
+    )
+
+
+if stdin.isatty():
+    run(
+        [
+            # https://goaccess.io/
+            "goaccess",
+            # Read stdin
+            "-",
+            # Log format
+            '--log-format=[%^ %x] %h "%m %U %H" -> %s %b %T',
+            "--date-format=%*",
+            "--time-format=%*",
+            # HTML output
+            "-o",
+            "report.html",
+            # Enabled panels
+            "--enable-panel=VISITORS",
+            "--enable-panel=REQUESTS",
+            "--enable-panel=HOSTS",
+            "--enable-panel=VISIT_TIMES",
+            "--enable-panel=STATUS_CODES",
+            # Disabled panels
+            "--ignore-panel=REQUESTS_STATIC",
+            "--ignore-panel=NOT_FOUND",
+            "--ignore-panel=OS",
+            "--ignore-panel=BROWSERS",
+            "--ignore-panel=VIRTUAL_HOSTS",
+            "--ignore-panel=REFERRERS",
+            "--ignore-panel=REFERRING_SITES",
+            "--ignore-panel=KEYPHRASES",
+            "--ignore-panel=REMOTE_USER",
+            "--ignore-panel=CACHE_STATUS",
+            "--ignore-panel=GEO_LOCATION",
+            "--ignore-panel=MIME_TYPE",
+            "--ignore-panel=TLS_TYPE",
+        ],
+        text=True,
+        input=logs,
+        capture_output=True,
+        check=True,
+    )
+
+else:
+    print(logs.rstrip())

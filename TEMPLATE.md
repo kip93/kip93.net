@@ -246,7 +246,14 @@ These online tools do some audits on your website and give you feedback on how t
 Looking at the logs can allow you to get an estimate of your website's traffic without the need of using client side code.
 
 ```shell
-sudo apt install goaccess
-./analyse  # If on the server
-./analyse <user@hostname>  # If remoting to the server
+# On the server
+sudo apt install gzip
 ```
+
+```shell
+# On the client
+sudo apt install goaccess
+./analyse <user@hostname>
+```
+
+This will generate an HTML report @ [/report.html](./report.html) (NOTE: file not version controlled).
