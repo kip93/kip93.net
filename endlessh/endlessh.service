@@ -1,0 +1,11 @@
+[Unit]
+Description=SSH tarpit
+
+[Service]
+Type=simple
+ExecStart=/bin/endlessh -sp 22
+User=root
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
