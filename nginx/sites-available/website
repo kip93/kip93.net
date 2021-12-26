@@ -51,7 +51,7 @@ server {  # HTTPS ##############################################################
 
     # Caching -------------------------------------------------------------------------------------------------------- #
     location  ~* \.(ttf|woff2?)$ {  # Fonts
-        add_header  Cache-Control max-age=2419200 ;  # 28 days
+        add_header  Cache-Control max-age=31556926 ;  # 1 year
     }
 
     location  ~* \.(gif|ico|jpeg|jpg|png|svg|webp)$ {  # Images
