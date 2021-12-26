@@ -1,6 +1,6 @@
 # kip93.net
 
-This repo contains all the info on my personal website, as well as some scripts and configurations. The purpose of this is 2 fold: for one, I want to keep the
+This repo contains all the info on my personal website, as well as some scripts and configurations. The purpose of this is 2-fold: for one, I want to keep the
 website version controlled to help me track changes on the site's content; and 2 I like to make this freely available for anyone to maybe reuse some of my
 scripts and shit.
 
@@ -30,7 +30,7 @@ For more info on usage permissions, see the [license](./LICENSE.md).
         <tr>
             <td colspan="2" align="right"><em>
                 Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.16.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
-                Last updated @ 26 Dec 2021, 16:49:01 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
+                Last updated @ 26 Dec 2021, 18:13:38 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
             </em></td>
         </tr>
     </tbody>
@@ -93,17 +93,17 @@ can use that instead if you want.
 # Install the firewall (example here is using apt for Debian based distros).
 sudo apt install ufw
 # Set default rules.
-ufw default deny incoming
-ufw default allow outgoing
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
 # Set rules for used ports.
-ufw limit 22/tcp  # SSH
-ufw allow 80/tcp  # HTTP
-ufw allow 443/tcp  # HTTPS
-ufw allow 1965/tcp  # GEMINI
+sudo ufw limit 22/tcp  # SSH
+sudo ufw allow 80/tcp  # HTTP
+sudo ufw allow 443/tcp  # HTTPS
+sudo ufw allow 1965/tcp  # GEMINI
 # Show the configuration to do a final check.
-ufw status verbose
+sudo ufw status verbose
 # Enable the firewall.
-ufw enable
+sudo ufw enable
 ```
 
 ### SSH
@@ -116,7 +116,13 @@ First, copy your public key to the server.
 ssh-copy-id <user@hostname>
 ```
 
-Then go to `/etc/ssh/sshd_config` (DO NOT FORGET THE "D" IN THE FILENAME) and set the following lines as such:
+_or_
+
+```shell
+ssh <user@hostname> "printf '%s\n' '<ssh public key>' >>~/.ssh/authorized_keys"
+```
+
+Then go to `/etc/ssh/sshd_config` (DO NOT FORGET THE “D” IN THE FILENAME) and set the following lines as such:
 
 ```text
 ChallengeResponseAuthentication no
@@ -130,6 +136,46 @@ And finally restart the SSH daemon.
 ```shell
 sudo systemctl restart sshd
 ```
+
+#### endlessh
+
+You can also make use of a project called [endlessh](https://github.com/skeeto/endlessh/) that will create a
+“[tarpit](https://en.wikipedia.org/wiki/Tarpit_(networking))” to protect your server against automated SSH attacks.
+
+For this to work you need to move your SSH port to a new one that is not the default `22`.
+
+First, allow that port on the firewall:
+
+```shell
+sudo ufw allow <PORT>/tcp
+```
+
+Then go back to the `/etc/ssh/sshd_config` file and edit the line:
+
+```text
+Port <port>
+```
+
+And finally restart the SSH daemon.
+
+```shell
+sudo systemctl restart sshd
+```
+
+Now you have to connect to SSH via the new port, by using a command such as:
+
+```shell
+ssh <user@hostname> -p <port>
+```
+
+Now let's actually install the tarpit.
+
+```shell
+curl -sSL https://github.com/skeeto/endlessh/releases/download/1.0/endlessh-1.0.tar.xz | sudo tar -xJf - --strip-components=1 -C /tmp/endlessh/
+sudo make -C /tmp/endlessh/ install PREFIX=/
+```
+
+And don't forget to add the executable `/bin/endlessh` to autostart.
 
 ### Auto ban
 
@@ -170,7 +216,7 @@ You should regularly update your system, lest a new vulnerability patch shows up
 `unattended-upgrades` package.
 
 ```shell
-apt install unattended-upgrades
+sudo apt install unattended-upgrades
 ```
 
 ### Finished?
@@ -190,7 +236,7 @@ workflow, but it is certainly not the only approach available.
 ```shell
 sudo apt install rsync  # For syncing the website content. Could also use something else, like git.
 sudo apt install nginx  # Used to host the HTML website.
-sudo apt install python-certbot-nginx  # Auto generate and renew certificates.
+sudo apt install python3-certbot-nginx  # Auto generate and renew certificates.
 sudo apt install cargo  # To install agate.
 sudo cargo install agate  # Server for GEMINI website.
 ```
@@ -210,23 +256,23 @@ rsync -EhmPpruvz --delete-after ./agate/agate.service <user@hostname>:/etc/syste
 
 ```shell
 # This should only need to be run once.
-ssh <user@hostname> 'ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/website; certbot --nginx'
-ssh <user@hostname> 'systemctl enable nginx; systemctl start nginx; systemctl reload nginx'
-ssh <user@hostname> 'mkdir -p /var/agate/; systemctl stop agate; systemctl enable agate; systemctl start agate'
+ssh <user@hostname> 'ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/website; sudo certbot --nginx'
+ssh <user@hostname> 'sudo systemctl enable nginx; sudo systemctl start nginx; sudo systemctl reload nginx'
+ssh <user@hostname> 'mkdir -p /var/agate/; sudo systemctl stop agate; sudo systemctl enable agate; sudo systemctl start agate'
 ```
 
 ### Reload services
 
 ```shell
 # Only needed when the configuration changes.
-ssh <user@hostname> 'systemctl reload nginx; systemctl restart agate'
+ssh <user@hostname> 'sudo systemctl reload nginx; sudo systemctl restart agate'
 ```
 
 ### Manually renew certificates
 
 ```shell
 # This should not be needed since certbot should auto renew it anyway.
-ssh <user@hostname> 'certbot certonly --nginx'
+ssh <user@hostname> 'sudo certbot certonly --nginx'
 ```
 
 
