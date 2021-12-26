@@ -3,8 +3,8 @@
 
 name: GitHub profile README generator
 on:  # When to run the workflow
-  schedule: [{cron: "0 4 * * 6"}]  # Every Saturday @ 04:00
-  push: {branches: ["main"]}  # When pushing to main
+  schedule: [ { cron: "20 4 * * 6" } ]  # Every Saturday @ 04:20
+  push: { branches: [ "main" ] }  # When pushing to main
 
 concurrency:  # Queue workflows rather than overlap them
   group: metrics
