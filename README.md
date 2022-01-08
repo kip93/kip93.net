@@ -29,8 +29,8 @@ For more info on usage permissions, see the [license](./LICENSE.md).
         </tr>
         <tr>
             <td colspan="2" align="right"><em>
-                Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.16.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
-                Last updated @ 1 Jan 2022, 04:49:38 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
+                Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.17.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
+                Last updated @ 8 Jan 2022, 04:50:56 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
             </em></td>
         </tr>
     </tbody>
