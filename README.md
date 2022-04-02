@@ -30,7 +30,7 @@ For more info on usage permissions, see the [license](./LICENSE.md).
         <tr>
             <td colspan="2" align="right"><em>
                 Generated with <a href="https://github.com/lowlighter/metrics/tree/latest/">lowlighter/metrics v3.22.0</a><br> <!-- VERSION => MAJOR.minor.patch -->
-                Last updated @ 26 Mar 2022, 04:45:55 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
+                Last updated @ 2 Apr 2022, 04:46:08 UTC <!-- meta.generated => DD/MM/YYYY, hh:mm -->
             </em></td>
         </tr>
     </tbody>
