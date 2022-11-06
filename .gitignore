@@ -4,18 +4,10 @@
 # Except:
 !/.github/
 !/.gitignore
-!/agate/
-!/analyse
-!/endlessh/
-!/g2h
 !/gmi/
 !/html/
 !/LICENSE.md
-!/LICENSE_BSD3
-!/LICENSE_CC_BY_4
+!/LICENSE
 !/metrics/
-!/nginx/
 !/README.md
-!/setup.cfg
-!/shell.nix
 !/TEMPLATE.md

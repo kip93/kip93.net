@@ -140,7 +140,7 @@ jobs:
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes  # Show detailed results
           plugin_pagespeed_screenshot: no  # Do not take a screen capture
-          plugin_pagespeed_url: https://kip93.net/gemini/  # Webpage to audit
+          plugin_pagespeed_url: https://gemini.kip93.net/  # Webpage to audit
           extras_css: |  # Make it prettier
             * { font-size: 18px; }
             h2, h2 +.field { margin: 0px; opacity: 0%; width: 0px; height: 0px; }

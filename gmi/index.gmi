@@ -26,7 +26,7 @@ A heavily opinionated personal site.
 This capsule can be accessed either through the gemini protocol or through an HTTP mirror.
 
 => gemini://kip93.net/        gemini://kip93.net/        -  GEMINI capsule
-=> https://kip93.net/gemini/  https://kip93.net/gemini/  -  HTTP site
+=> https://gemini.kip93.net/  https://gemini.kip93.net/  -  HTTP site
 
 ## About me
 I am a self-taught software developer professional and electronics hobbyist, and a strong advocate for "libre" software (i.e., FOSS). My specialities are unhealthy obsessions, bad memory, and a complete lack of understanding of how human interactions work.

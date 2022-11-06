@@ -1,7 +1,7 @@
 # Licenses
 
-The content of the website & capsule itself is licensed under the [CC BY 4.0](./LICENSE_CC_BY_4), unless explicitly
-stated otherwise; and the accompanying code is distributed under the [BSD 3-Clause license](./LICENSE_BSD3).
+The content of the website & capsule itself is licensed under the [CC BY 4.0](./LICENSE), unless explicitly stated
+otherwise.
 
 ## Exceptions
 
